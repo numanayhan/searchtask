@@ -1,0 +1,42 @@
+PODS:
+  - Alamofire (4.9.1)
+  - IQKeyboardManagerSwift (6.5.6)
+  - LanguageManager-iOS (1.2.3)
+  - ReachabilitySwift (5.0.0)
+  - RxSwift (5.1.1)
+  - SwiftyEventBus/Core (0.2.0)
+  - SwiftyEventBus/Rx (0.2.0):
+    - RxSwift
+    - SwiftyEventBus/Core
+  - SwiftyJSON (5.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.9.1)
+  - IQKeyboardManagerSwift
+  - LanguageManager-iOS
+  - ReachabilitySwift
+  - SwiftyEventBus/Rx
+  - SwiftyJSON
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - IQKeyboardManagerSwift
+    - LanguageManager-iOS
+    - ReachabilitySwift
+    - RxSwift
+    - SwiftyEventBus
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  LanguageManager-iOS: 020a6849c97949683926773fd5b82baceaa142db
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SwiftyEventBus: 31949f74a26621ce12836447305aa4f7da732ee5
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+
+PODFILE CHECKSUM: a3c7d15b0ae547e3ff2d1767cbd456b5a1213a9e
+
+COCOAPODS: 1.9.3
