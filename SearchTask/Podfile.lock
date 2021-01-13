@@ -1,7 +1,31 @@
 PODS:
-  - Alamofire (4.9.1)
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - Alamofire (4.8.2)
+  - AlamofireImage (3.5.2):
+    - Alamofire (~> 4.8)
+  - Cache (6.0.0)
+  - Cartography (4.0.0)
+  - Hero (1.5.0)
+  - Imaginary (5.0.0):
+    - Cache (~> 6.0.0)
   - IQKeyboardManagerSwift (6.5.6)
   - LanguageManager-iOS (1.2.3)
+  - Lightbox (2.5.0):
+    - Imaginary (~> 5.0.0)
   - ReachabilitySwift (5.0.0)
   - RxSwift (5.1.1)
   - SwiftyEventBus/Core (0.2.0)
@@ -11,32 +35,51 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.9.1)
+  - AFNetworking (~> 4.0)
+  - Alamofire (~> 4.8.2)
+  - AlamofireImage (~> 3.5)
+  - Cartography (~> 4.0)
+  - Hero
   - IQKeyboardManagerSwift
   - LanguageManager-iOS
+  - Lightbox
   - ReachabilitySwift
   - SwiftyEventBus/Rx
   - SwiftyJSON
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - Alamofire
+    - AlamofireImage
+    - Cache
+    - Cartography
+    - Hero
+    - Imaginary
     - IQKeyboardManagerSwift
     - LanguageManager-iOS
+    - Lightbox
     - ReachabilitySwift
     - RxSwift
     - SwiftyEventBus
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
+  Cartography: c5626d29056b20f1e95c017326ee4df57cc39ad8
+  Hero: b7385b75e7259da62f4f85462f59a5082d66b058
+  Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   LanguageManager-iOS: 020a6849c97949683926773fd5b82baceaa142db
+  Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SwiftyEventBus: 31949f74a26621ce12836447305aa4f7da732ee5
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: a3c7d15b0ae547e3ff2d1767cbd456b5a1213a9e
+PODFILE CHECKSUM: 25c4bb67721e69b54668c2a484539226a09763e6
 
 COCOAPODS: 1.9.3
