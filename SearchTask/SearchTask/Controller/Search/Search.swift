@@ -18,6 +18,7 @@ class Search: UIViewController {
             
         }
     }
+    var toolbar: UIToolbar!
     var searchBar = UISearchBar()
     var inSearchMode = false
     var collectionViewEnabled = true
@@ -26,8 +27,7 @@ class Search: UIViewController {
        var view = UIView()
         return view
         
-    }()
-    
+    }() 
     lazy var segment : UISegmentedControl = {
         let filterTabs = ["Movies", "Music", "Apps","Books"]
         var sc = UISegmentedControl(items: filterTabs)
@@ -41,24 +41,36 @@ class Search: UIViewController {
     }()
     var mediaData = [Media]()
     var search = UISearchController()
-    var isSearchBarEmpty: Bool {
-        return search.searchBar.text?.isEmpty ?? true
-         
-    }
+    var searchFooterBottomConstraint:NSLayoutConstraint!
+    var client = ClientRequest()
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-        
+  
         //Configure Media Collection View Cell
         //setCollectionView()
         setNavbar()
+        
+        search.searchResultsUpdater =  self
+        search.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = search
+        definesPresentationContext = true
+        search.searchBar.scopeButtonTitles = Media.Category.allCases.map { $0.rawValue }
+        search.searchBar.delegate = self
+       
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification,
+                                       object: nil, queue: .main) { (notification) in
+                                        self.handleKeyboard(notification: notification) }
+        notificationCenter.addObserver(forName: UIResponder.keyboardWillHideNotification,
+                                       object: nil, queue: .main) { (notification) in
+                                        self.handleKeyboard(notification: notification) }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
         if navigationController != nil{
             view.backgroundColor = .white
             self.navigationItem.setHidesBackButton(true, animated: true)
-             
         }
     }
     func setNavbar(){
@@ -98,7 +110,15 @@ class Search: UIViewController {
         
     }
     // MARK: - UISearchBar
-
+    var isSearchBarEmpty: Bool {
+      return search.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      let searchBarScopeIsFiltering = search.searchBar.selectedScopeButtonIndex != 0
+      return search.isActive && (!isSearchBarEmpty || searchBarScopeIsFiltering)
+    }
+    
     func configureSearchBar() {
         searchBar.sizeToFit()
         searchBar.delegate = self
@@ -126,6 +146,7 @@ class Search: UIViewController {
             mediaCV.reloadData()
         }
     }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         searchBar.showsCancelButton = false
@@ -148,10 +169,49 @@ class Search: UIViewController {
     }
     // MARK: - API
     func fetchMedia() {
-     
+        let parameters  = [  "term" : "jhon","entity":"software" , "country":"tr"]
+        
+        if ConnectNetwork.isConnectedToNetwork() == true {
+            client.getParamsRequest(url: Config.Search, parameters: parameters) { data in
+                DispatchQueue.main.async {
+                    let dataStatus:NSDictionary = data  as NSDictionary.Value as! NSDictionary
+                    print(dataStatus)
+                    
+                }
+            }
+        }
+    }
+    func filterContentForSearchText(_ searchText: String,
+                                    category: Media? = nil) {
+      
+        mediaCV.reloadData()
+    }
+    
+    func handleKeyboard(notification: Notification) {
+      // 1
+      guard notification.name == UIResponder.keyboardWillChangeFrameNotification else {
+        searchFooterBottomConstraint.constant = 0
+        view.layoutIfNeeded()
+        return
+      }
+      
+      guard
+        let info = notification.userInfo,
+        let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        else {
+          return
+      }
+      
+      // 2
+      let keyboardHeight = keyboardFrame.cgRectValue.size.height
+      UIView.animate(withDuration: 0.1, animations: { () -> Void in
+        self.searchFooterBottomConstraint.constant = keyboardHeight
+        self.view.layoutIfNeeded()
+      })
     }
     
 }
+
 extension Search : UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -180,8 +240,8 @@ extension Search : UICollectionViewDataSource, UICollectionViewDelegate,UISearch
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaCell", for: indexPath) as? MediaCell{
          
-            let artistName = mediaData[indexPath.item].results[indexPath.row].artistName
-            print(artistName)
+//            let artistName = mediaData[indexPath.item].results[indexPath.row].artistName
+//            print(artistName)
             cell.contentView.backgroundColor = .red
             return cell
         }

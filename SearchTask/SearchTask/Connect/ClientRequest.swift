@@ -13,9 +13,9 @@ protocol RequestDataDelegate {
     func didCompleteRequest(result: String)
 }
 
-class Request  {
+class ClientRequest  {
     
-    static let defaultService = Request()
+    static let defaultService = ClientRequest()
     var delegate = RequestDataDelegate.self
     func  postParamsRequest(url :String,parameters:Parameters  , completion: @escaping (Any?) ->Void)
     {
@@ -34,26 +34,21 @@ class Request  {
             return
         })
     }
-    func  getRequest(api :String  , completion: @escaping (Any?) ->Void)
+    func  getParamsRequest(url :String,parameters:Parameters  , completion: @escaping (Any?) ->Void)
     {
-        
-        Alamofire.request(api , method: .get, encoding: URLEncoding.default).responseJSON(completionHandler: { (response ) in
+        Alamofire.request(url   , method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON(completionHandler: { (response ) in
+             
             switch (response.result){
             case .success(_):
-                if let data = response.data{
-                    completion((data))
-                }
-                break
-                
-            case .failure(_):
                 if let data = response.result.value{
-                    let jsonObject:NSDictionary = data as! NSDictionary
+                    let jsonObject = data
                     completion((jsonObject))
                 }
                 break
+            case .failure(_):
+                break
             }
             return
-            
         })
     }
 }

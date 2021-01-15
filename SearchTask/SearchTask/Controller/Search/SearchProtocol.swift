@@ -7,10 +7,42 @@
 
 import Foundation 
 // MARK: - Media
-struct Media {
-    let resultCount: Int
-    let results: [MediaResult]
+struct Media : Decodable {
+    let name: String
+    let category: Category
+    enum Category: Decodable {
+      case movies
+      case music
+      case apps
+      case books
+    }
+//    let resultCount: Int
+//    let results: [MediaResult]
 }
+
+extension Media.Category: CaseIterable { }
+extension Media.Category: RawRepresentable {
+  typealias RawValue = String
+  
+  init?(rawValue: RawValue) {
+    switch rawValue {
+    case "music-video": self = .movies
+    case "music": self = .music
+    case "software": self = .apps
+    case "audiobook": self = .books
+    default: return nil
+    }
+  }
+  var rawValue: RawValue {
+    switch self {
+    case .movies: return "music-video"
+    case .music: return "music"
+    case .apps: return "software"
+    case .books: return "audiobook"
+    }
+  }
+}
+
 // MARK: - Result
 struct MediaResult {
        

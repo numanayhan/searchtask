@@ -8,6 +8,9 @@
 import Foundation
 
 class Config {
-    static let Search = "https://itunes.apple.com"
+    //New URL
+//    static let Search = "https://itunes.apple.com"
+    // Old URL
+    static let Search = "https://itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch"
     
 }
