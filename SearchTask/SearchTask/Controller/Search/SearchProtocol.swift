@@ -7,6 +7,14 @@
 
 import Foundation 
 // MARK: - Media
+struct FilterSearch {
+    var isActive: Bool
+    var account: Filters
+}
+class Filters {
+    var types: String = "" 
+}
+ 
 struct Media : Decodable {
     let name: String
     let category: Category
@@ -35,10 +43,10 @@ extension Media.Category: RawRepresentable {
   }
   var rawValue: RawValue {
     switch self {
-    case .movies: return "music-video"
-    case .music: return "music"
-    case .apps: return "software"
-    case .books: return "audiobook"
+    case .movies: return "Movies"
+    case .music: return "Music"
+    case .apps: return "Apps"
+    case .books: return "Books"
     }
   }
 }
@@ -66,3 +74,55 @@ struct MediaResult {
          
     }
 }
+
+//APPS PROTOCOL
+
+struct AppsProtocol {
+    let resultCount: Int
+    let results: [Result]
+}
+
+// Result.swift
+
+import Foundation
+
+// MARK: - Result
+struct Result {
+    let screenshotUrls, ipadScreenshotUrls: [String]
+    let appletvScreenshotUrls: [Any?]
+    let artworkUrl512: String
+    let artistViewURL: String
+    let artworkUrl60, artworkUrl100: String
+    let supportedDevices: [String]
+    let advisories: [Any?]
+    let isGameCenterEnabled: Bool
+    let features: [String]
+    let kind: String
+    let languageCodesISO2A: [String]
+    let fileSizeBytes: String
+    let sellerURL: String?
+    let averageUserRatingForCurrentVersion: Double
+    let userRatingCountForCurrentVersion: Int
+    let trackContentRating: String
+    let trackViewURL: String
+    let contentAdvisoryRating, trackCensoredName: String
+    let averageUserRating: Double
+    let releaseDate: Date
+    let trackID: Int
+    let trackName: String
+    let genreIDS: [String]
+    let formattedPrice, primaryGenreName, minimumOSVersion: String
+    let isVppDeviceBasedLicensingEnabled: Bool
+    let sellerName: String
+    let currentVersionReleaseDate: Date
+    let releaseNotes: String?
+    let primaryGenreID: Int
+    let currency, resultDescription: String
+    let artistID: Int
+    let artistName: String
+    let genres: [String]
+    let price: Int
+    let bundleID, version, wrapperType: String
+    let userRatingCount: Int
+}
+

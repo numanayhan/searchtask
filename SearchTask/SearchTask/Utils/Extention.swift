@@ -36,6 +36,15 @@ extension UIView {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
-    
+    func addConstraint(format:String,views:UIView...){
+        var viewsDic = [String:UIView]()
+        
+        for (i,v) in views.enumerated(){
+            let key = "v\(i)"
+            viewsDic[key] = v
+        }
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDic))
+        
+    }
     
 }
