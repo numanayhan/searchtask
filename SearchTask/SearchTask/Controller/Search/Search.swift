@@ -96,14 +96,11 @@ class Search: UIViewController {
             search.searchBar.placeholder = "Search"
             definesPresentationContext = true
             navigationItem.searchController = search
-            setFilterBar()
+             
         }
     }
     
-    func setFilterBar(){
-         
-    }
-    
+     
     func setCollectionView(){
         
        
@@ -153,7 +150,7 @@ class Search: UIViewController {
         } else {
             inSearchMode = true
             fetchMedia(searchText)
-            //mediaCV.reloadData()
+            mediaCV.reloadData()
         }
     }
     
